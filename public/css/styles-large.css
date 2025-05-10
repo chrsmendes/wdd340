@@ -1,0 +1,43 @@
+/******** Larger Screens ***************/
+@media (min-width: 768px) {
+  body {
+    background-image: url("/images/site/small_check.jpg");
+  }
+
+  /******* Wrapper Section ***************/
+  #wrapper {
+    max-width: 750px;
+    margin: 2rem auto;
+    padding: 1rem;
+    background-color: white;
+    border: #01a0c3 7px solid;
+    border-radius: 7px;
+  }
+
+  /******* Herro Section ***************/
+  .hero-content {
+    padding-inline: 3rem;
+  }
+
+  /******* Content Section ***************/
+  .content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-top: 3rem;
+  }
+
+  .content h2 {
+    margin-bottom: 3rem;
+  }
+
+  .car-reviews {
+    grid-column: 2 / 3;
+    grid-row: 1 / 2;
+  }
+
+  .car-upgrades {
+    grid-column: 1 / 2;
+    grid-row: 1 / 2;
+  }
+}
