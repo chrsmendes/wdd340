@@ -1,0 +1,12 @@
+<!-- Content Heading: Displays the classification title as the main heading -->
+<% if (title) { %>
+<h1><%= title %></h1>
+<% } else {
+  res.redirect('/')
+} %>
+
+<!-- Message Block: For future message display (currently commented out) -->
+<%# messages() %>
+
+<!-- Inventory Items Display: Shows the inventory grid -->
+<%- grid %>
