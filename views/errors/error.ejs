@@ -1,0 +1,22 @@
+<% /* Adiciona a folha de estilos específica de erro */ %>
+<link rel="stylesheet" href="/css/error.css">
+
+<div class="error-container">
+  <% if (title) { %>
+  <h1><%= title %></h1>
+  <% } else { %>
+  <h1>404</h1>
+  <% } %>
+
+  <div class="error-message">
+    <p><%= message || 'Sorry, we appear to have lost that page.' %></p>
+  </div>
+
+  <div class="error-fun">
+    <p>Looks like you've driven off the road! 🚗💨</p>
+    <p>Our pit crew is working on getting you back on track.</p>
+    <span class="error-emoji">🛠️ 🏁 🔧</span>
+  </div>
+
+  <a href="/" class="btn">Back to the Dealership</a>
+</div>
