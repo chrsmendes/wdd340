@@ -19,7 +19,7 @@ Util.getNav = async function (req, res, next) {
             '</a>';
         list += '</li>';
     });
-    list += '<ul>';
+    list += '</ul>';
     return list;
 }
 
@@ -54,6 +54,38 @@ Util.buildClassificationGrid = async function(data){
     grid += '<p class="notice">Sorry, no matching vehicles could be found.</p>'
   }
   return grid
+}
+
+/* **************************************
+* Build the vehicle detail view HTML
+* ************************************ */
+Util.buildVehicleDetail = function (vehicle) {
+  let detail
+  if (vehicle) {
+    detail = '<div class="vehicle-detail">'
+    detail += '<div class="vehicle-image">'
+    detail += '<img src="' + vehicle.inv_image + '" alt="' + vehicle.inv_make + ' ' + vehicle.inv_model + '">'
+    detail += '</div>'
+    detail += '<div class="vehicle-info">'
+    detail += '<h2>' + vehicle.inv_make + ' ' + vehicle.inv_model + ' Details</h2>'
+    detail += '<div class="price"><strong>Price: $' + new Intl.NumberFormat('en-US').format(vehicle.inv_price) + '</strong></div>'
+    detail += '<p><strong>Year:</strong> ' + vehicle.inv_year + '</p>'
+    detail += '<p><strong>Make:</strong> ' + vehicle.inv_make + '</p>'
+    detail += '<p><strong>Model:</strong> ' + vehicle.inv_model + '</p>'
+    detail += '<p><strong>Mileage:</strong> ' + new Intl.NumberFormat('en-US').format(vehicle.inv_miles) + ' miles</p>'
+    detail += '<p><strong>Color:</strong> ' + vehicle.inv_color + '</p>'
+    if (vehicle.inv_description) {
+      detail += '<div class="description">'
+      detail += '<h3>Description</h3>'
+      detail += '<p>' + vehicle.inv_description + '</p>'
+      detail += '</div>'
+    }
+    detail += '</div>'
+    detail += '</div>'
+  } else {
+    detail = '<p class="notice">Sorry, no vehicle details could be found.</p>'
+  }
+  return detail
 }
 
 Util.handleErrors = fn => (req, res, next) => Promise.resolve(fn(req, res, next)).catch(next)

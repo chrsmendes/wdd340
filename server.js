@@ -13,6 +13,7 @@ const expressLayouts = require("express-ejs-layouts")
 const baseController = require('./controllers/baseController')
 const inventoryRoute = require("./routes/inventoryRoute")
 const utilities = require("./utilities/index")
+const compression = require('compression')
 
 /* ***********************
  * View Engine and Templates
@@ -20,6 +21,11 @@ const utilities = require("./utilities/index")
 app.set("view engine", "ejs")
 app.use(expressLayouts)
 app.set("layout", "./layouts/layout")
+
+/* ***********************
+ * Compression Middleware
+ *************************/
+app.use(compression());
 
 /* ***********************
  * Routes
@@ -44,6 +50,9 @@ app.listen(port, () => {
 // Index route
 app.get("/", utilities.handleErrors(baseController.buildHome))
 
+// Intentional error route for testing
+app.get("/trigger-error", utilities.handleErrors(baseController.triggerError))
+
 // File Not Found Route - must be last route in list
 app.use(async (req, res, next) => {
   next({ status: 404, message: 'Sorry, we appear to have lost that page.' })
@@ -56,7 +65,7 @@ app.use(async (req, res, next) => {
 app.use(async (err, req, res, next) => {
   let nav = await utilities.getNav()
   console.error(`Error at: "${req.originalUrl}": ${err.message}`)
-  if (err.status == 404) { message = err.message } else { message = 'Oh no! There was a crash. Maybe try a different route?' }
+  if (err.status == 404) { message = err.message } else { message = err.message ?? 'Oh no! There was a crash. Maybe try a different route?' }
   res.render("errors/error", {
     title: err.status || 'Server Error',
     message,

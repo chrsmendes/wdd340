@@ -21,11 +21,6 @@ body {
   );
 }
 
-/******* Wrapper Section ***************/
-#wrapper {
-  margin: 1rem;
-}
-
 /******* Top Header ***************/
 #top-header {
   display: flex;
@@ -68,6 +63,9 @@ nav ul {
   margin: 0;
   display: flex;
   justify-content: space-around;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem;
 }
 
 nav a {
@@ -181,4 +179,138 @@ h2 {
     var(--secondary-color) 100%
   ) !important;
   transform: translateY(-2px) scale(1.04);
+}
+
+/******* Vehicle Detail View ***************/
+.vehicle-detail {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+.vehicle-detail .vehicle-image img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.vehicle-info h2 {
+  color: var(--primary-color);
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  border-bottom: 2px solid var(--secondary-color);
+  padding-bottom: 0.5rem;
+}
+
+.vehicle-info .price {
+  font-size: 1.5rem;
+  color: var(--secondary-color);
+  margin-bottom: 1rem;
+  padding: 0.5rem;
+  background-color: #f0f8ff;
+  border-left: 4px solid var(--secondary-color);
+  border-radius: 4px;
+}
+
+.vehicle-info p {
+  margin: 0.5rem 0;
+  font-size: 1.1rem;
+  line-height: 1.5;
+}
+
+.vehicle-info p strong {
+  color: var(--primary-color);
+  font-weight: 600;
+}
+
+.vehicle-info .description {
+  margin-top: 1.5rem;
+  padding: 1rem;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  border: 1px solid #e0e0e0;
+}
+
+.vehicle-info .description h3 {
+  color: var(--primary-color);
+  margin-bottom: 0.5rem;
+}
+
+/******* Footer ***************/
+footer {
+  margin-top: 2rem;
+  padding: 1rem;
+  border-top: 1px solid #e0e0e0;
+  text-align: center;
+}
+
+footer p {
+  margin: 0.5rem 0;
+}
+
+footer a {
+  color: var(--secondary-color);
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+footer a:hover {
+  text-decoration: underline;
+}
+
+/******* Inventory Display Grid ***************/
+#inv-display {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  list-style: none;
+  padding: 0;
+  margin: 1rem 0;
+}
+
+#inv-display li {
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 1rem;
+  background-color: #f9f9f9;
+  transition: box-shadow 0.3s;
+}
+
+#inv-display li:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+#inv-display img {
+  width: 100%;
+  height: auto;
+  border-radius: 4px;
+  margin-bottom: 0.5rem;
+}
+
+#inv-display .namePrice {
+  text-align: center;
+}
+
+#inv-display .namePrice h2 {
+  margin: 0.5rem 0;
+  font-size: 1.2rem;
+}
+
+#inv-display .namePrice h2 a {
+  color: var(--primary-color);
+  text-decoration: none;
+}
+
+#inv-display .namePrice h2 a:hover {
+  color: var(--secondary-color);
+}
+
+#inv-display .namePrice span {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--secondary-color);
 }

@@ -40,4 +40,27 @@
     grid-column: 1 / 2;
     grid-row: 1 / 2;
   }
+
+  /******* Vehicle Detail for Large Screens ***************/
+  .vehicle-detail {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 3rem;
+  }
+
+  .vehicle-detail .vehicle-image {
+    flex: 1;
+    max-width: 50%;
+  }
+
+  .vehicle-detail .vehicle-info {
+    flex: 1;
+    max-width: 50%;
+  }
+
+  /******* Inventory Grid for Large Screens ***************/
+  #inv-display {
+    grid-template-columns: repeat(2, minmax(300px, 1fr));
+    gap: 2rem;
+  }
 }
