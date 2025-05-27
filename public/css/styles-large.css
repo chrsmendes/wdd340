@@ -4,13 +4,16 @@
     background-image: url("/images/site/small_check.jpg");
   }
 
+  main {
+    margin: 0;
+  }
+
   /******* Wrapper Section ***************/
   #wrapper {
     max-width: 750px;
     margin: 2rem auto;
     padding: 1rem;
     background-color: white;
-    border: #01a0c3 7px solid;
     border-radius: 7px;
   }
 

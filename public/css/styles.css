@@ -10,6 +10,10 @@ body {
   font-family: "Arial", sans-serif;
 }
 
+main {
+  margin: 0 1rem;
+}
+
 /******* Root element ***************/
 :root {
   --primary-color: #242333;
@@ -26,7 +30,7 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 2rem;
+  margin: 1rem;
 }
 
 #top-header a {
