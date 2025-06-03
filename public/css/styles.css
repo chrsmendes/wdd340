@@ -163,6 +163,7 @@ h2 {
 }
 
 .btn {
+  border: none;
   background: var(--primary-btn-gradient);
   color: #fff;
   font-size: 1.15rem;
@@ -317,4 +318,187 @@ footer a:hover {
   font-size: 1.1rem;
   font-weight: 600;
   color: var(--secondary-color);
+}
+
+/******* ACCOUNT FORMS & VALIDATION ***************/
+
+/* ========== Form Containers ========== */
+.login-container,
+.register-container {
+  margin: 2rem auto;
+  padding: 2rem;
+  background-color: #f9f9f9;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Base form container styling (specific widths are in styles-large.css) */
+
+/* ========== Form Structure ========== */
+.login-form,
+.register-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.form-group label {
+  font-weight: 600;
+  color: var(--primary-color);
+  font-size: 1rem;
+}
+
+/* ========== Input Fields & Validation States ========== */
+.form-group input {
+  padding: 0.75rem;
+  border: 2px solid #e0e0e0;
+  border-radius: 4px;
+  font-size: 1rem;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: var(--secondary-color);
+  box-shadow: 0 0 0 3px rgba(0, 72, 86, 0.1);
+}
+
+/* Hide validation styling for pristine (untouched) fields */
+input:not(:focus):not(:placeholder-shown):required:valid {
+  border-color: #28a745;
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="%2328a745" viewBox="0 0 16 16"><path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z"/></svg>');
+  background-position: right 10px center;
+  background-repeat: no-repeat;
+  background-size: 16px 16px;
+}
+
+/* Only show invalid styling after interaction (user has typed something or field has lost focus) */
+input:not(:placeholder-shown):required:invalid,
+input:focus:invalid,
+input[data-interacted="true"]:required:invalid {
+  border-color: #dc3545;
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="%23dc3545" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293 5.354 4.646z"/></svg>');
+  background-position: right 10px center;
+  background-repeat: no-repeat;
+  background-size: 16px 16px;
+}
+
+/* Hide validation styling for pristine fields (those that haven't been interacted with) */
+input:not([data-interacted="true"]):not(:focus):placeholder-shown:required {
+  border-color: #e0e0e0;
+  background-image: none;
+}
+
+/* ========== Password Fields & Requirements ========== */
+.password-input-group {
+  position: relative;
+}
+
+.password-field-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.password-field-wrapper input {
+  width: 100%;
+  padding-right: 40px;
+}
+
+/* Adjust password field wrapper for validation icons */
+.password-field-wrapper input:required:valid,
+.password-field-wrapper input:required:invalid {
+  padding-right: 70px; /* More space for both toggle button and validation icon */
+}
+
+.password-toggle-btn {
+  position: absolute;
+  right: 35px; /* Moved from 10px to 35px to avoid overlap with validation icon */
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.2rem;
+  color: var(--secondary-color);
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.password-toggle-btn:hover {
+  color: var(--primary-color);
+}
+
+/* Password requirements styling */
+.password-requirements {
+  background-color: #e7f3ff;
+  padding: 0.75rem;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  border-left: 3px solid var(--secondary-color);
+  margin-bottom: 0.5rem;
+}
+
+.password-requirements span {
+  color: #555;
+  font-style: italic;
+}
+
+.password-requirements p {
+  margin-top: 0;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.password-requirements ul {
+  margin: 0;
+  padding-left: 1.5rem;
+}
+
+.password-requirements li {
+  margin-bottom: 0.25rem;
+}
+
+/* ========== Form Buttons ========== */
+.login-btn,
+.register-btn {
+  width: 100%;
+  margin-top: 0.5rem;
+}
+
+/* ========== Account Links ========== */
+.register-link {
+  text-align: center;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid #e0e0e0;
+}
+
+.register-link p {
+  margin: 0;
+  color: #666;
+}
+
+.register-link a {
+  color: var(--secondary-color);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.register-link a:hover {
+  text-decoration: underline;
+}
+
+/* Mobile-first styling (for screens less than 768px) */
+.login-container,
+.register-container {
+  max-width: 90%;
+  padding: 1.5rem;
 }

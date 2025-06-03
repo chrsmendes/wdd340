@@ -66,4 +66,21 @@
     grid-template-columns: repeat(2, minmax(300px, 1fr));
     gap: 2rem;
   }
+
+  /******* Account Forms for Large Screens ***************/
+  .login-container {
+    max-width: 400px;
+    padding: 2rem;
+  }
+
+  .register-container {
+    max-width: 500px;
+    padding: 2rem;
+  }
+
+  /* Enhanced password field spacing for large screens */
+  .password-field-wrapper input:required:valid,
+  .password-field-wrapper input:required:invalid {
+    padding-right: 75px; /* Even more space for both toggle button and validation icon on larger screens */
+  }
 }
