@@ -8,11 +8,20 @@
 <!-- Message Block: For flash message display -->
 <%- messages() %>
 
+<!-- Server-side validation errors -->
+<% if (errors) { %>
+<ul class="notice">
+  <% errors.array().forEach(error => { %>
+  <li><%= error.msg %></li>
+  <%  }) %>
+</ul>
+<% } %>
+
 <div class="login-container">
   <form action="/account/login" method="POST" class="login-form">
     <div class="form-group">
       <label for="account_email">Email Address:</label>
-      <input type="email" id="account_email" name="account_email" required placeholder="Enter your email">
+      <input type="email" id="account_email" name="account_email" required placeholder="Enter your email" value="<%= locals.account_email || '' %>">
     </div>
     <div class="form-group password-input-group">
       <label for="account_password">Password:</label>
