@@ -17,7 +17,7 @@
 </ul>
 <% } %>
 
-<div class="register-container">
+<div class="card">
   <form action="/account/register" method="POST" class="register-form">
     <div class="form-group">
       <label for="account_firstname">First Name:</label>
@@ -37,12 +37,12 @@
         <input type="password" id="account_password" name="account_password" required pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$" placeholder="Enter your password">
         <button type="button" id="showPassword" class="password-toggle-btn" title="Show password">👁️</button>
       </div>
-      <div class="password-requirements">
+      <div class="requirements">
         <span>Passwords must be at least 12 characters and contain at least 1 number, 1 capital letter and 1 special character</span>
       </div>
     </div>
     <div class="form-group">
-      <button type="submit" class="btn register-btn">Register</button>
+      <button type="submit" class="btn btn-primary register-btn">Register</button>
     </div>
   </form>
 </div>

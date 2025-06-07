@@ -1,0 +1,85 @@
+<% if (title) { %>
+<h1><%= title %></h1>
+<% } else {
+  res.redirect('/')
+} %>
+
+<%- messages() %>
+
+<% if (errors) { %>
+<ul class="notice">
+  <% errors.array().forEach(error => { %>
+  <li><%= error.msg %></li>
+  <% }) %>
+</ul>
+<% } %>
+
+<div class="card">
+  <form action="/inv/add" method="post">
+    <div class="form-row">
+      <div class="form-group">
+        <%- classificationList %>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label for="inv_make">Make</label>
+        <input type="text" id="inv_make" name="inv_make" class="form-control" required pattern="^[A-Za-z0-9\s\-\.]+$" title="Make must contain only letters, numbers, spaces, hyphens, and periods." placeholder="Enter vehicle make" value="<%= locals.inv_make || '' %>">
+      </div>
+      <div class="form-group">
+        <label for="inv_model">Model</label>
+        <input type="text" id="inv_model" name="inv_model" class="form-control" required pattern="^[A-Za-z0-9\s\-\.]+$" title="Model must contain only letters, numbers, spaces, hyphens, and periods." placeholder="Enter vehicle model" value="<%= locals.inv_model || '' %>">
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label for="inv_year">Year</label>
+        <input type="number" id="inv_year" name="inv_year" class="form-control" required min="1900" max="2030" placeholder="Enter vehicle year" value="<%= locals.inv_year || '' %>">
+      </div>
+      <div class="form-group">
+        <label for="inv_color">Color</label>
+        <input type="text" id="inv_color" name="inv_color" class="form-control" required pattern="^[A-Za-z\s]+$" title="Color must contain only letters and spaces." placeholder="Enter vehicle color" value="<%= locals.inv_color || '' %>">
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label for="inv_price">Price</label>
+        <input type="number" id="inv_price" name="inv_price" class="form-control" required min="0" step="0.01" placeholder="Enter vehicle price" value="<%= locals.inv_price || '' %>">
+      </div>
+      <div class="form-group">
+        <label for="inv_miles">Miles</label>
+        <input type="number" id="inv_miles" name="inv_miles" class="form-control" required min="0" placeholder="Enter vehicle mileage" value="<%= locals.inv_miles || '' %>">
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="inv_description">Description</label>
+      <textarea id="inv_description" name="inv_description" class="form-control" rows="4" required placeholder="Enter vehicle description"><%= locals.inv_description || '' %></textarea>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label for="inv_image">Image Path</label>
+        <input type="text" id="inv_image" name="inv_image" class="form-control" required placeholder="Enter image path (e.g., /images/vehicles/no-image.png)" value="<%= locals.inv_image || '/images/vehicles/no-image.png' %>" disabled>
+        <div class="requirements">
+          <span>Image changing not available yet. We will use the default image path.</span>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="inv_thumbnail">Thumbnail Path</label>
+        <input type="text" id="inv_thumbnail" name="inv_thumbnail" class="form-control" required placeholder="Enter thumbnail path (e.g., /images/vehicles/no-image-tn.png)" value="<%= locals.inv_thumbnail || '/images/vehicles/no-image-tn.png' %>" disabled>
+        <div class="requirements">
+          <span>Thumbnail changing not available yet. We will use the default thumbnail path.</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group mt-1">
+      <button type="submit" class="btn btn-success">Add Vehicle</button>
+      <a href="/inv" class="btn btn-error">Back</a>
+    </div>
+  </form>
+</div>

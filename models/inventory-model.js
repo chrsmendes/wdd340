@@ -4,7 +4,7 @@ const pool = require('../database/');
  *  Get all classification data
  * ************************** */
 async function getAllClassification() {
-    return await pool.query('SELECT * FROM public.classification ORDER BY classification_name');
+  return await pool.query('SELECT * FROM public.classification ORDER BY classification_name');
 }
 
 /* ***************************
@@ -22,6 +22,7 @@ async function getInventoryByClassificationId(classification_id) {
     return data.rows
   } catch (error) {
     console.error("getclassificationsbyid error " + error)
+    return [];
   }
 }
 
@@ -43,4 +44,59 @@ async function getInventoryByInventoryId(inventory_id) {
   }
 }
 
-module.exports = { getAllClassification, getInventoryByClassificationId, getInventoryByInventoryId };
+/* ***************************
+ *  Get Classification by name
+ * ************************** */
+async function getClassificationByName(classification_name) {
+  try {
+    const data = await pool.query(
+      `SELECT * FROM public.classification WHERE LOWER(classification_name) = LOWER($1)`,
+      [classification_name]
+    )
+    return data.rows[0]
+  } catch (error) {
+    console.error("getClassificationByName error " + error)
+    return null;
+  }
+}
+
+// Add a new classification
+async function addClassification(classification_name) {
+  try {
+    const result = await pool.query(
+      `INSERT INTO public.classification (classification_name) 
+      VALUES ($1) RETURNING classification_id`,
+      [classification_name]
+    )
+    return result.rows[0].classification_id
+  } catch (error) {
+    console.error("addClassification error " + error)
+    return null;
+  }
+}
+
+/* ***************************
+ *  Add a new inventory item
+ * ************************** */
+async function addInventory(inv_make, inv_model, inv_year, inv_description, inv_image, inv_thumbnail, inv_price, inv_miles, inv_color, classification_id) {
+  try {
+    const result = await pool.query(
+      `INSERT INTO public.inventory (inv_make, inv_model, inv_year, inv_description, inv_image, inv_thumbnail, inv_price, inv_miles, inv_color, classification_id) 
+      VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING inv_id`,
+      [inv_make, inv_model, inv_year, inv_description, inv_image, inv_thumbnail, inv_price, inv_miles, inv_color, classification_id]
+    )
+    return result.rows[0].inv_id
+  } catch (error) {
+    console.error("addInventory error " + error)
+    return null;
+  }
+}
+
+module.exports = {
+  getAllClassification,
+  getInventoryByClassificationId,
+  getInventoryByInventoryId,
+  getClassificationByName,
+  addClassification,
+  addInventory,
+};

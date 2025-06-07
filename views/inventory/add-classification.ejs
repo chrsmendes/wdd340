@@ -1,0 +1,52 @@
+<% if (title) { %>
+<h1><%= title %></h1>
+<% } else {
+  res.redirect('/')
+} %>
+
+<%- messages() %>
+
+<div class="card">
+  <form action="/inv/classification/add" method="post">
+    <div class="form-group">
+      <label for="classificationName">Classification Name</label>
+      <input type="text" id="classificationName" name="classification_name" class="form-control" required pattern="^[A-Za-z0-9]+$" title="No spaces or special characters allowed. Use only letters and numbers." placeholder="Enter classification name" value="<%= locals.classification_name || '' %>">
+      <div class="requirements">
+        <span>Classification name must not contain spaces or special characters. Use only letters and numbers</span>
+      </div>
+    </div>
+    <div class="form-group mt-1">
+      <button type="submit" class="btn btn-success">Add Classification</button>
+      <a href="/inv" class="btn btn-error">Back</a>
+    </div>
+  </form>
+</div>
+
+<% if (classifications) { %>
+<script>
+  const classifications = <%- JSON.stringify(classifications) %>;
+
+  const classificationInput = document.getElementById("classificationName");
+
+  function checkClassificationExists() {
+    const classificationName = classificationInput.value.trim();
+    const exists = classifications.some(classification => classification.classification_name.toLowerCase() === classificationName.toLowerCase());
+
+    if (exists) {
+      classificationInput.setCustomValidity("This classification name already exists. Please choose a different name.");
+      classificationInput.reportValidity();
+    } else {
+      classificationInput.setCustomValidity("");
+    }
+  }
+
+  classificationInput.addEventListener("input", checkClassificationExists);
+
+  // Run check on page load
+  checkClassificationExists();
+</script>
+<% } else { %>
+<script>
+  console.warn("No classifications found.");
+</script>
+<% } %>
