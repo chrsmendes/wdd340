@@ -1,0 +1,27 @@
+<% if (title) { %>
+<h1><%= title %></h1>
+<% } else {
+  res.redirect('/')
+} %>
+
+<%- messages() %>
+
+<div class="management-links card">
+  <h2>Classifications</h2>
+  <p class="text-muted m-0">
+    Manage your inventory classifications, adding new classifications, and more will be available here.
+  </p>
+  <a href="/inv/classification/add" class="btn btn-success" title="Add a new classification">
+    +
+  </a>
+</div>
+
+<div class="management-links card">
+  <h2>Inventory</h2>
+  <p class="text-muted m-0">
+    Manage your inventory items, adding new items, and more will be available here.
+  </p>
+  <a href="/inv/add" class="btn btn-success" title="Add a new Inventory Item">
+    +
+  </a>
+</div>

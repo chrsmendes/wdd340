@@ -18,10 +18,22 @@ main {
 :root {
   --primary-color: #242333;
   --secondary-color: #004856;
-  --primary-btn-gradient: linear-gradient(
+  --error-color: #dc3545;
+  --success-color: #28a745;
+  --primary-gradient: linear-gradient(
     90deg,
     var(--secondary-color) 60%,
     #1fa2ff 100%
+  );
+  --success-gradient: linear-gradient(
+    90deg,
+    #28a745 60%,
+    rgba(84, 234, 119, 0.8) 100%
+  );
+  --error-gradient: linear-gradient(
+    90deg,
+    #dc3545 60%,
+    rgba(255, 99, 71, 0.8) 100%
   );
 }
 
@@ -164,26 +176,53 @@ h2 {
 
 .btn {
   border: none;
-  background: var(--primary-btn-gradient);
-  color: #fff;
   font-size: 1.15rem;
   font-weight: 600;
   padding: 0.85rem 2.2rem;
-  border-radius: 30px;
+  border-radius: 8px;
   text-decoration: none;
   box-shadow: 0 2px 8px rgba(31, 162, 255, 0.1);
   transition: background 0.2s, transform 0.2s;
   margin-top: 0.5rem;
   display: inline-block;
+  text-align: center;
 }
 
 .btn:hover {
-  background: linear-gradient(
-    90deg,
-    #1fa2ff 60%,
-    var(--secondary-color) 100%
-  ) !important;
   transform: translateY(-2px) scale(1.04);
+  cursor: pointer;
+}
+
+.btn.btn-primary {
+  background: var(--primary-gradient);
+  color: #fff;
+}
+
+.btn.btn-primary:hover {
+  background: linear-gradient(90deg, #1fa2ff 60%, var(--secondary-color) 100%);
+}
+
+.btn.btn-success {
+  background: var(--success-gradient);
+  color: #fff;
+}
+
+.btn.btn-success:hover {
+  background: linear-gradient(90deg, rgb(0 163 39 / 52%) 60%, #28a745 100%);
+}
+
+.btn.btn-error {
+  background: var(--error-gradient);
+  color: #fff;
+}
+
+.btn.btn-error:hover {
+  background: linear-gradient(90deg, #ce2636cc 60%, rgb(190 56 31) 100%);
+}
+
+.text-muted {
+  color: #626262;
+  font-size: 0.9rem;
 }
 
 /******* Vehicle Detail View ***************/
@@ -323,8 +362,7 @@ footer a:hover {
 /******* ACCOUNT FORMS & VALIDATION ***************/
 
 /* ========== Form Containers ========== */
-.login-container,
-.register-container {
+.card {
   margin: 2rem auto;
   padding: 2rem;
   background-color: #f9f9f9;
@@ -345,8 +383,19 @@ footer a:hover {
 
 .form-group {
   display: flex;
-  flex-direction: column;
   gap: 0.5rem;
+  flex-direction: column;
+}
+
+.form-row {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.form-row .form-group {
+  flex: 1;
+  min-width: 250px;
 }
 
 .form-group label {
@@ -356,22 +405,67 @@ footer a:hover {
 }
 
 /* ========== Input Fields & Validation States ========== */
-.form-group input {
+.form-group input,
+.form-group select,
+.form-group textarea {
   padding: 0.75rem;
   border: 2px solid #e0e0e0;
   border-radius: 4px;
   font-size: 1rem;
   transition: border-color 0.3s, box-shadow 0.3s;
+  font-family: inherit;
 }
 
-.form-group input:focus {
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
   outline: none;
   border-color: var(--secondary-color);
   box-shadow: 0 0 0 3px rgba(0, 72, 86, 0.1);
 }
 
+/* Textarea specific styling */
+.form-group textarea {
+  resize: vertical;
+  min-height: 100px;
+  line-height: 1.5;
+}
+
+/* Select specific styling */
+.form-group select {
+  background-color: white;
+  cursor: pointer;
+  appearance: none;
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="%23666" viewBox="0 0 16 16"><path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/></svg>');
+  background-position: right 10px center;
+  background-repeat: no-repeat;
+  background-size: 12px 12px;
+  padding-right: 35px;
+}
+
+/* Adjust background positioning for validation icons on select elements */
+.form-group select:required:valid {
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="%23666" viewBox="0 0 16 16"><path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/></svg>'),
+    url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="%2328a745" viewBox="0 0 16 16"><path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z"/></svg>');
+  background-position: right 35px center, right 10px center;
+  background-repeat: no-repeat;
+  background-size: 12px 12px, 16px 16px;
+  padding-right: 60px;
+}
+
+.form-group select:required:invalid {
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="%23666" viewBox="0 0 16 16"><path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/></svg>'),
+    url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="%23dc3545" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293 5.354 4.646z"/></svg>');
+  background-position: right 35px center, right 10px center;
+  background-repeat: no-repeat;
+  background-size: 12px 12px, 16px 16px;
+  padding-right: 60px;
+}
+
 /* Hide validation styling for pristine (untouched) fields */
-input:not(:focus):not(:placeholder-shown):required:valid {
+input:not(:focus):not(:placeholder-shown):required:valid,
+select:not(:focus):required:valid,
+textarea:not(:focus):not(:placeholder-shown):required:valid {
   border-color: #28a745;
   background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="%2328a745" viewBox="0 0 16 16"><path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z"/></svg>');
   background-position: right 10px center;
@@ -382,7 +476,13 @@ input:not(:focus):not(:placeholder-shown):required:valid {
 /* Only show invalid styling after interaction (user has typed something or field has lost focus) */
 input:not(:placeholder-shown):required:invalid,
 input:focus:invalid,
-input[data-interacted="true"]:required:invalid {
+input[data-interacted="true"]:required:invalid,
+select:required:invalid,
+select:focus:invalid,
+select[data-interacted="true"]:required:invalid,
+textarea:not(:placeholder-shown):required:invalid,
+textarea:focus:invalid,
+textarea[data-interacted="true"]:required:invalid {
   border-color: #dc3545;
   background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="%23dc3545" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293 5.354 4.646z"/></svg>');
   background-position: right 10px center;
@@ -391,7 +491,9 @@ input[data-interacted="true"]:required:invalid {
 }
 
 /* Hide validation styling for pristine fields (those that haven't been interacted with) */
-input:not([data-interacted="true"]):not(:focus):placeholder-shown:required {
+input:not([data-interacted="true"]):not(:focus):placeholder-shown:required,
+select:not([data-interacted="true"]):not(:focus):required,
+textarea:not([data-interacted="true"]):not(:focus):placeholder-shown:required {
   border-color: #e0e0e0;
   background-image: none;
 }
@@ -437,7 +539,7 @@ input:not([data-interacted="true"]):not(:focus):placeholder-shown:required {
 }
 
 /* Password requirements styling */
-.password-requirements {
+.requirements {
   background-color: #e7f3ff;
   padding: 0.75rem;
   border-radius: 4px;
@@ -446,23 +548,23 @@ input:not([data-interacted="true"]):not(:focus):placeholder-shown:required {
   margin-bottom: 0.5rem;
 }
 
-.password-requirements span {
+.requirements span {
   color: #555;
   font-style: italic;
 }
 
-.password-requirements p {
+.requirements p {
   margin-top: 0;
   font-weight: 600;
   margin-bottom: 0.5rem;
 }
 
-.password-requirements ul {
+.requirements ul {
   margin: 0;
   padding-left: 1.5rem;
 }
 
-.password-requirements li {
+.requirements li {
   margin-bottom: 0.25rem;
 }
 
@@ -496,9 +598,30 @@ input:not([data-interacted="true"]):not(:focus):placeholder-shown:required {
   text-decoration: underline;
 }
 
-/* Mobile-first styling (for screens less than 768px) */
-.login-container,
-.register-container {
-  max-width: 90%;
-  padding: 1.5rem;
+.management-links {
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-content: flex-start;
+  transition: transform 0.3s;
+}
+
+.management-links:hover {
+  transform: scale(1.02);
+}
+
+.m-0 {
+  margin: 0;
+}
+
+.mt-1 {
+  margin-top: 1rem;
+}
+.mt-2 {
+  margin-top: 2rem;
+}
+.mt-3 {
+  margin-top: 3rem;
 }
