@@ -18,6 +18,7 @@ const compression = require('compression')
 const session = require("express-session")
 const pool = require("./database/")
 const bodyParser = require("body-parser")
+const cookieParser = require("cookie-parser")
 
 /* ***********************
  * View Engine and Templates
@@ -46,6 +47,12 @@ app.use((req, res, next) => {
   res.locals.messages = require("express-messages")(req, res)
   next()
 })
+
+// Cookie Parser Middleware
+app.use(cookieParser())
+
+// JWT Token Check Middleware
+app.use(utilities.checkJWTToken)
 
 /* ***********************
  * Compression Middleware

@@ -1,0 +1,23 @@
+<!-- Content Heading: Displays the account management title as the main heading -->
+<% if (title) { %>
+<h1><%= title %></h1>
+<% } else {
+  res.redirect('/')
+} %>
+
+<!-- Message Block: For flash message display -->
+<%- messages() %>
+
+<!-- Server-side validation errors -->
+<% if (errors) { %>
+<ul class="notice">
+  <% errors.array().forEach(error => { %>
+  <li><%= error.msg %></li>
+  <%  }) %>
+</ul>
+<% } %>
+
+<div class="card">
+  <h2>You're logged in!</h2>
+  <p>Welcome to your account management area. More features will be added here soon.</p>
+</div>

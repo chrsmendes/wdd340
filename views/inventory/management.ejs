@@ -24,4 +24,17 @@
   <a href="/inv/add" class="btn btn-success" title="Add a new Inventory Item">
     +
   </a>
+
+  <div>
+    <h3>Manage Inventory Items</h3>
+    <p>Choose a classification from the list to see the items belonging to the classification.</p>
+
+    <%- classificationSelect %>
+
+    <table id="inventoryDisplay"></table>
+    <noscript>JavaScript must be enabled to use this page.</noscript>
+  </div>
+
 </div>
+
+<script src="../../js/inventory.js"></script>
