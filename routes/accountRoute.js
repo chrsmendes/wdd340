@@ -26,6 +26,30 @@ router.post(
     regValidate.loginRules(),
     regValidate.checkLoginData,
     utilities.handleErrors(accountController.accountLogin)
-)
+);
+
+// Route to handle account update view
+router.get("/update/:account_id", utilities.checkLogin, utilities.handleErrors(accountController.buildAccountUpdate));
+
+// Route to process account update
+router.post(
+    "/update",
+    utilities.checkLogin,
+    regValidate.accountUpdateRules(),
+    regValidate.checkAccountUpdateData,
+    utilities.handleErrors(accountController.updateAccount)
+);
+
+// Route to process password update
+router.post(
+    "/update-password",
+    utilities.checkLogin,
+    regValidate.passwordUpdateRules(),
+    regValidate.checkPasswordUpdateData,
+    utilities.handleErrors(accountController.updatePassword)
+);
+
+// Route to handle logout
+router.get("/logout", utilities.handleErrors(accountController.accountLogout));
 
 module.exports = router;

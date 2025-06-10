@@ -21,6 +21,7 @@ router.get(
 router.get(
     "/",
     utilities.checkLogin,
+    utilities.checkAccountType,
     utilities.handleErrors(invController.buildInventoryManagement)
 );
 
@@ -28,6 +29,7 @@ router.get(
 router.get(
     "/getInventory/:classification_id",
     utilities.checkLogin,
+    utilities.checkAccountType,
     utilities.handleErrors(invController.getInventoryJSON)
 );
 
@@ -35,12 +37,14 @@ router.get(
 router.get(
     "/classification/add",
     utilities.checkLogin,
+    utilities.checkAccountType,
     utilities.handleErrors(invController.buildAddClassification)
 );
 
 // Route to Add a new classification
 router.post("/classification/add",
     utilities.checkLogin,
+    utilities.checkAccountType,
     inventoryValidate.classificationRules(),
     inventoryValidate.checkClassificationData,
     utilities.handleErrors(invController.addClassification)
@@ -50,6 +54,7 @@ router.post("/classification/add",
 router.get(
     "/add",
     utilities.checkLogin,
+    utilities.checkAccountType,
     utilities.handleErrors(invController.buildAddInventory)
 );
 
@@ -57,6 +62,7 @@ router.get(
 router.post(
     "/add",
     utilities.checkLogin,
+    utilities.checkAccountType,
     inventoryValidate.inventoryRules(),
     inventoryValidate.checkInventoryData,
     utilities.handleErrors(invController.addInventory)
@@ -66,6 +72,7 @@ router.post(
 router.get(
     "/edit/:inv_id",
     utilities.checkLogin,
+    utilities.checkAccountType,
     utilities.handleErrors(invController.editInventoryView)
 );
 
@@ -73,6 +80,7 @@ router.get(
 router.post(
     "/update",
     utilities.checkLogin,
+    utilities.checkAccountType,
     inventoryValidate.inventoryRules(),
     inventoryValidate.checkUpdateData,
     utilities.handleErrors(invController.updateInventory)
@@ -82,6 +90,7 @@ router.post(
 router.get(
     "/delete/:inv_id",
     utilities.checkLogin,
+    utilities.checkAccountType,
     utilities.handleErrors(invController.deleteInventoryView)
 );
 
@@ -89,6 +98,7 @@ router.get(
 router.post(
     "/delete",
     utilities.checkLogin,
+    utilities.checkAccountType,
     utilities.handleErrors(invController.deleteInventory)
 );
 

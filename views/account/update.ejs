@@ -1,0 +1,98 @@
+<!-- Content Heading: Displays the update account title as the main heading -->
+<% if (title) { %>
+<h1><%= title %></h1>
+<% } else {
+  res.redirect('/')
+} %>
+
+<!-- Message Block: For flash message display -->
+<%- messages() %>
+
+<!-- Server-side validation errors -->
+<% if (errors) { %>
+<ul class="notice">
+  <% errors.array().forEach(error => { %>
+  <li><%= error.msg %></li>
+  <%  }) %>
+</ul>
+<% } %>
+
+<div class="card">
+  <h2>Account Update</h2>
+  <form action="/account/update" method="POST" class="update-form">
+    <div class="form-group">
+      <label for="account_firstname">First Name:</label>
+      <input type="text" id="account_firstname" name="account_firstname" required placeholder="Enter your first name" value="<%= locals.account_firstname || (locals.accountData ? locals.accountData.account_firstname : '') %>">
+    </div>
+    <div class="form-group">
+      <label for="account_lastname">Last Name:</label>
+      <input type="text" id="account_lastname" name="account_lastname" required placeholder="Enter your last name" value="<%= locals.account_lastname || (locals.accountData ? locals.accountData.account_lastname : '') %>">
+    </div>
+    <div class="form-group">
+      <label for="account_email">Email Address:</label>
+      <input type="email" id="account_email" name="account_email" required placeholder="Enter your email" value="<%= locals.account_email || (locals.accountData ? locals.accountData.account_email : '') %>">
+    </div>
+    <input type="hidden" name="account_id" value="<%= locals.accountData ? locals.accountData.account_id : '' %>">
+    <div class="form-group">
+      <button type="submit" class="btn btn-primary">Update Account</button>
+    </div>
+  </form>
+</div>
+
+<div class="card">
+  <h2>Change Password</h2>
+  <p><strong>Password Requirements:</strong> Passwords must be at least 12 characters and contain at least 1 number, 1 capital letter and 1 special character. Entering a new password will replace your current password.</p>
+  <form action="/account/update-password" method="POST" class="password-form">
+    <div class="form-group password-input-group">
+      <label for="account_password">New Password:</label>
+      <div class="password-field-wrapper">
+        <input type="password" id="account_password" name="account_password" required pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$" placeholder="Enter your new password">
+        <button type="button" id="showPassword" class="password-toggle-btn" title="Show password">👁️</button>
+      </div>
+      <div class="requirements">
+        <span>Passwords must be at least 12 characters and contain at least 1 number, 1 capital letter and 1 special character</span>
+      </div>
+    </div>
+    <input type="hidden" name="account_id" value="<%= locals.accountData ? locals.accountData.account_id : '' %>">
+    <div class="form-group">
+      <button type="submit" class="btn btn-primary">Change Password</button>
+    </div>
+  </form>
+</div>
+
+<script>
+  // Password visibility toggle functionality
+  document.getElementById("showPassword").addEventListener("click", function() {
+    const passwordInput = document.getElementById("account_password");
+    const toggleButton = document.getElementById("showPassword");
+
+    if (passwordInput.type === "password") {
+      passwordInput.type = "text";
+      toggleButton.textContent = "🔒";
+      toggleButton.title = "Hide password";
+    } else {
+      passwordInput.type = "password";
+      toggleButton.textContent = "👁️";
+      toggleButton.title = "Show password";
+    }
+  });
+
+  // Form validation
+  document.addEventListener('DOMContentLoaded', function() {
+    const inputs = document.querySelectorAll('.form-group input');
+
+    inputs.forEach(input => {
+      input.addEventListener('blur', function() {
+        if (this.value) {
+          this.setAttribute('data-interacted', 'true');
+        }
+      });
+
+      input.addEventListener('input', function() {
+        if (this.value) {
+          this.setAttribute('data-interacted', 'true');
+        }
+      });
+    });
+  });
+</script>
