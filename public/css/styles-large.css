@@ -83,4 +83,27 @@
   .password-field-wrapper input:required:invalid {
     padding-right: 75px; /* Even more space for both toggle button and validation icon on larger screens */
   }
+
+  /******* Reviews Section for Large Screens ***************/
+  .reviews-section {
+    margin-top: 50px;
+    padding: 30px;
+  }
+
+  .review-header {
+    flex-wrap: nowrap;
+    gap: 1rem;
+  }
+
+  .review-item {
+    padding: 20px;
+  }
+
+  .reviewer-name {
+    min-width: 120px;
+  }
+
+  .review-rating {
+    font-size: 18px;
+  }
 }

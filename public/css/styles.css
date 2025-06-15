@@ -169,6 +169,80 @@ h2 {
   margin-bottom: 1rem;
 }
 
+.reviews-section {
+  margin-top: 40px;
+  padding: 20px;
+  background: #f9f9f9;
+  border-radius: 8px;
+}
+
+.reviews-section h2 {
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.add-review-link {
+  margin-bottom: 20px;
+}
+
+.review-restriction {
+  margin-bottom: 20px;
+}
+
+.client-only-message {
+  background-color: #fff3cd;
+  border: 1px solid #ffeaa7;
+  color: #856404;
+  padding: 10px 15px;
+  border-radius: 4px;
+  margin: 0;
+  font-style: italic;
+}
+
+.review-item {
+  background: white;
+  padding: 15px;
+  margin-bottom: 15px;
+  border-radius: 5px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.review-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  font-size: 14px;
+}
+
+.reviewer-name {
+  font-weight: bold;
+  color: #333;
+}
+
+.review-rating {
+  color: #ffc107;
+  font-size: 16px;
+}
+
+.review-date {
+  color: #666;
+  font-size: 12px;
+}
+
+.review-text p {
+  margin: 0;
+  line-height: 1.5;
+  color: #555;
+}
+
+.no-reviews {
+  color: #666;
+  font-style: italic;
+  text-align: center;
+  padding: 20px;
+}
+
 /******* Upgrades Section ***************/
 .upgrades-list {
   display: grid;
@@ -697,4 +771,38 @@ textarea:not([data-interacted="true"]):not(:focus):placeholder-shown:required {
 
 #inventoryDisplay td:first-child {
   font-weight: bold;
+}
+
+/******* Review Section ***************/
+.add-review-container {
+  max-width: 600px;
+  margin: 20px auto;
+  padding: 20px;
+  background: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.review-form .form-group {
+  margin-bottom: 20px;
+}
+
+.review-form label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.review-form select,
+.review-form textarea {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.review-form textarea {
+  resize: vertical;
+  min-height: 100px;
 }

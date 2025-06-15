@@ -163,4 +163,22 @@ Util.checkAccountType = (req, res, next) => {
   }
 }
 
+/* ****************************************
+ *  Check Account Type for Client Access
+ * ************************************ */
+Util.checkClientType = (req, res, next) => {
+  if (res.locals.loggedin && res.locals.accountData &&
+    res.locals.accountData.account_type === "Client") {
+    next()
+  } else {
+    req.flash("notice", "Only clients can leave reviews.")
+    // Redirect back to the vehicle detail page if possible
+    const inv_id = req.params.invId || req.body.inv_id
+    if (inv_id) {
+      return res.redirect(`/inv/detail/${inv_id}`)
+    }
+    return res.redirect("/")
+  }
+}
+
 module.exports = Util;

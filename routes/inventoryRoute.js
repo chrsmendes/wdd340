@@ -102,4 +102,20 @@ router.post(
     utilities.handleErrors(invController.deleteInventory)
 );
 
+// Route to build add review view
+router.get(
+    "/review/:invId",
+    utilities.checkLogin,
+    utilities.checkClientType,
+    utilities.handleErrors(invController.buildAddReviewView)
+);
+
+// Route to add a review
+router.post(
+    "/review",
+    utilities.checkLogin,
+    utilities.checkClientType,
+    utilities.handleErrors(invController.addReview)
+);
+
 module.exports = router;

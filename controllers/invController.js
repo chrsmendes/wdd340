@@ -1,4 +1,5 @@
 const invModel = require("../models/inventory-model")
+const reviewModel = require("../models/review-model")
 const utilities = require("../utilities/")
 
 const invCont = {}
@@ -36,12 +37,15 @@ invCont.buildByInventoryId = async function (req, res, next) {
   const inv_id = req.params.invId
   const vehicle = await invModel.getInventoryByInventoryId(inv_id)
   const vehicleDetail = await utilities.buildVehicleDetail(vehicle)
+  const reviews = await reviewModel.getReviewsByInventoryId(inv_id)
   let nav = await utilities.getNav()
   const vehicleName = vehicle.inv_make + ' ' + vehicle.inv_model
   res.render("./inventory/detail", {
     title: vehicleName,
     nav,
     vehicleDetail,
+    reviews,
+    inv_id,
   })
 }
 
@@ -334,6 +338,84 @@ invCont.deleteInventory = async function (req, res, next) {
   } else {
     req.flash("notice", "Sorry, the delete failed.")
     res.redirect(`/inv/delete/${inv_id}`)
+  }
+}
+
+/* ***************************
+ *  Build add review view
+ * ************************** */
+invCont.buildAddReviewView = async function (req, res, next) {
+  const inv_id = req.params.invId
+  const vehicle = await invModel.getInventoryByInventoryId(inv_id)
+  let nav = await utilities.getNav()
+  const vehicleName = vehicle.inv_make + ' ' + vehicle.inv_model
+
+  // Check if user already reviewed this vehicle
+  if (res.locals.loggedin) {
+    const hasReviewed = await reviewModel.checkExistingReview(inv_id, res.locals.accountData.account_id)
+    if (hasReviewed) {
+      req.flash("notice", "You have already reviewed this vehicle.")
+      return res.redirect(`/inv/detail/${inv_id}`)
+    }
+  }
+
+  res.render("./inventory/add-review", {
+    title: "Add Review - " + vehicleName,
+    nav,
+    vehicle,
+    inv_id,
+    errors: null,
+    review_rating: "",
+    review_text: "",
+  })
+}
+
+/* ***************************
+ *  Process add review
+ * ************************** */
+invCont.addReview = async function (req, res, next) {
+  const { inv_id, review_rating, review_text } = req.body
+  const account_id = res.locals.accountData.account_id
+  let nav = await utilities.getNav()
+
+  try {
+    // Check if user already reviewed this vehicle
+    const hasReviewed = await reviewModel.checkExistingReview(inv_id, account_id)
+    if (hasReviewed) {
+      req.flash("notice", "You have already reviewed this vehicle.")
+      return res.redirect(`/inv/detail/${inv_id}`)
+    }
+
+    const result = await reviewModel.addReview(inv_id, account_id, review_rating, review_text)
+
+    if (result) {
+      req.flash("notice", "Your review has been added successfully!")
+      res.redirect(`/inv/detail/${inv_id}`)
+    } else {
+      req.flash("notice", "Sorry, there was an error adding your review.")
+      const vehicle = await invModel.getInventoryByInventoryId(inv_id)
+      res.render("./inventory/add-review", {
+        title: "Add Review - " + vehicle.inv_make + ' ' + vehicle.inv_model,
+        nav,
+        vehicle,
+        inv_id,
+        errors: null,
+        review_rating,
+        review_text,
+      })
+    }
+  } catch (error) {
+    req.flash("notice", "Sorry, there was an error adding your review.")
+    const vehicle = await invModel.getInventoryByInventoryId(inv_id)
+    res.render("./inventory/add-review", {
+      title: "Add Review - " + vehicle.inv_make + ' ' + vehicle.inv_model,
+      nav,
+      vehicle,
+      inv_id,
+      errors: null,
+      review_rating,
+      review_text,
+    })
   }
 }
 

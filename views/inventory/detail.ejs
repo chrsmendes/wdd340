@@ -4,4 +4,46 @@
 <div class="vehicle-detail-main">
   <h1><%= title %></h1>
   <%- vehicleDetail %>
+
+  <!-- Reviews Section -->
+  <div class="reviews-section">
+    <h2>Customer Reviews</h2>
+
+    <% if (locals.loggedin) { %>
+    <% if (locals.accountData && locals.accountData.account_type === 'Client') { %>
+    <div class="add-review-link">
+      <a href="/inv/review/<%= inv_id %>" class="btn btn-primary">Add Your Review</a>
+    </div>
+    <% } else { %>
+    <div class="review-restriction">
+      <p class="client-only-message">Only clients can leave reviews.</p>
+    </div>
+    <% } %>
+    <% } else { %>
+    <p><a href="/account/login">Login</a> to leave a review.</p>
+    <% } %>
+
+    <% if (reviews && reviews.length > 0) { %>
+    <div class="reviews-list">
+      <% reviews.forEach(function(review) { %>
+      <div class="review-item">
+        <div class="review-header">
+          <span class="reviewer-name"><%= review.account_firstname %> <%= review.account_lastname.charAt(0) %>.</span>
+          <span class="review-rating">
+            <% for(let i = 1; i <= 5; i++) { %>
+            <% if(i <= review.review_rating) { %>★<% } else { %>☆<% } %>
+            <% } %>
+          </span>
+          <span class="review-date"><%= new Date(review.review_date).toLocaleDateString() %></span>
+        </div>
+        <div class="review-text">
+          <p><%= review.review_text %></p>
+        </div>
+      </div>
+      <% }) %>
+    </div>
+    <% } else { %>
+    <p class="no-reviews">No reviews yet. Be the first to review this vehicle!</p>
+    <% } %>
+  </div>
 </div>
